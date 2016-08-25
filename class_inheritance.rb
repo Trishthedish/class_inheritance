@@ -23,30 +23,71 @@
 ##################################
 
 ##### Inheriting Methods
-
-# class Dog
+# writing this like this is far to big. AND NOT DRY
+# class Cat
 #   attr_accessor :name
 #   attr_reader :breed
 #
-#   def initialize(name, breed = "Mutt")
+#   def initialize(name, breed ="Mutt")
 #     @name = name
 #     @breed = breed
 #   end
-#
 #   def speak
-#     return "Woof!"
+#
 #   end
 #
 # end
 #
+# class Cat
+#   attr_accessor :name
+#   attr_reader :breed
+#
+#   def initialize(name, breed ="Mutt")
+#     @name = name
+#     @breed = breed
+#   end
+#   def speak
+#
+#   end
+#
+# # end
+# class Animal
+#   attr_accessor :name
+#   attr_reader :breed
+#
+#   def initialize(name, breed ="Mutt")
+#      @name = name
+#      @breed = breed
+#   end
+# end
+#
+#
+# class Dog < Animal
+#   def speak
+#     return "Woof!"
+#   end
+# end
 #
 # class Puppy < Dog  # the '<' is what allows the puppy to inherit all traits from a dog.
 #
 #   def is_cuter?
 #     return true
 #   end
-#
 # end
+#
+# pup = Puppy.new("George", "English Bulldog")
+# puts pup.speak
+#
+#
+# class Cat < Animal
+#   def open_can_of_tuna
+#     return "Meow"
+#   end
+# end
+#
+# kitty = Cat.new("Asterisk", "Tabby")
+# puts kitty.name
+# puts kitty.open_can_of_tuna
 #
 #
 #
@@ -76,10 +117,15 @@
 #   end
 #
 #   def speak #What happens if we give our child class a method the same name as a method in the parent class it's inheriting from?
+#
+#     # it overode the original class method. It will ignore the other one previously created.
 #     return "Yip Yip!"
 #   end
 #
 # end
+#
+# pup = Puppy.new("Winston", "Schnauzer")
+# puts pup.speak
 
 
 
@@ -90,9 +136,14 @@
 #   attr_accessor :name
 #   attr_reader :breed
 #
-#   def initialize(name, breed = "Mutt")
-#     @name = name
-#     @breed = breed
+#                 # (name, breed = "Mutt")
+#                 #hash // without hash
+#   def initialize(hash)
+#     @name = hash[:name]
+#     @breed = hash[:breed]
+#     puts speak
+#     # @name = name
+#     # @breed = breed
 #   end
 #
 #   def speak
@@ -106,6 +157,12 @@
 #
 #
 # class Puppy < Dog
+#   attr_accessor :name, :breed, :speak
+#
+#   def initialize(hash)
+#     super
+#     @age = hash[:age]
+#   end
 #
 #   def is_cuter?
 #     return true
@@ -114,16 +171,18 @@
 #   def speak
 #     return "Yip Yip!"
 #   end
-#
+# # exact same name as Parent Dog method.
 #   def roll_over
 #     super + "...and begs for treat"
 #   end
 #
 # end
 #
-# pup = Puppy.new("Rosie")
+# pup = Puppy.new({name: "Rosie", breed: "Great Dane", age: 20})
 # puts pup.speak
 # puts pup.roll_over
+# puts pup.age
+# puts pup.name
 
 
 
@@ -137,7 +196,7 @@
   #If the ouput is different than expected, discover why.
 
   #If time, Play around with more of the functionality of the classes! (create more instance objects, call all the methods!)
-
+    #
     class Post
       attr_accessor :title, :content
       attr_reader :date
@@ -189,10 +248,8 @@
       end
 
       def add_post(post)
-        current_date = Date.now
-
-        new_post = Post.new(title: post[:title], content: post[:content], date: current_date)
-
+        new_post = Post.new(title: post[:title], content: post[:content], date: current_date[])
+    # new hash
         @posts << new_post
       end
 
@@ -206,7 +263,7 @@
 
     class Admin < User
       attr_reader :admin
-
+          # its going to use user data
       def initialize(user_data)
         super
         @admin = true
@@ -216,28 +273,40 @@
         Announcement.add_announcement(title: announcement[:title], content: announcement[:content], author: self)
       end
     end
-
-
-
-    #TESTS:
+require 'awesome_print'
+    #
+    #
+    # #TESTS:
     admin1= Admin.new(name: "Dorthy", email: "admin@emailadmin.com" )
     admin1.make_announcement(title: "testing", content: "This is a test")
+    ap admin1.add_post(title: "new post", content: "something really interesting")
+
+    admin2 = Admin.new(name: "Jamie", email: "fake@gmail.com")
+    admin2.make_announcement(title: "2nd Test", email: "joe.com", content: "see annoucments" )
+    print admin2.see_announcements
+
+
 
     user1 = User.new(name: "Sophia", email: "email@email.com")
-    print user1.see_announcements
+    ap user1.see_announcements
+
 
     #Create another admin.
       #Have that admin create an announcement
+
 
    #Will user1 be able to see announcements created by both admins?
 
 
 #Questions to ponder...
    # Is a user able to make an announcement?
+
+  #  no?
+
    # Is an admin able to view all the annoucements that have been made, even by other admins?
    # Why is announcement inheriting from Post?
 
-
+# yes, but not others?
 
 ##################################
 #####      WHY USE THIS?     #####
