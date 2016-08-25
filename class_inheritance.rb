@@ -236,11 +236,11 @@
 #####      WHY USE THIS?     #####
 ##################################
 
-#FAKER!
-
 #DRY Code
 
-#There are multiple classes that have repeated code.
+#If there are multiple classes that have repeated code, a super should be created that those classes can inherit from!
+
+#EX: Fake Gem
 
 
 ##################################
