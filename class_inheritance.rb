@@ -232,6 +232,13 @@
    #Will user1 be able to see announcements created by both admins?
 
 
+#Questions to ponder...
+   # Is a user able to make an announcement?
+   # Is an admin able to view all the annoucements that have been made, even by other admins?
+   # Why is announcement inheriting from Post?
+
+
+
 ##################################
 #####      WHY USE THIS?     #####
 ##################################
